@@ -21,3 +21,14 @@ cp -fr githooks/ .git/hooks
 
 - Formatter: [Effective Dart](https://dart.dev/guides/language/effective-dart)
 - Linter: [lint](https://pub.dev/packages/lint)
+
+### Git Hooks
+
+Git Hooksで以下が実行される。
+- コミット時: `formatter`
+- プッシュ時: `linter`, `test`
+
+### GitHub Actions
+
+GitHub Actionsで以下が実行される。
+- プルリク作成、プルリク更新、mainブランチにブッシュ時: `linter`, `test`
