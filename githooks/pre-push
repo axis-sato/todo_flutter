@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Run the flutter analyzer..."
+flutter analyze
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+echo "Run tests..."
+flutter test
+if [ $? -ne 0 ]; then
+  exit 1
+fi

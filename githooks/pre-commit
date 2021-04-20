@@ -1,0 +1,8 @@
+#!/bin/sh
+
+STAGED_DART_FILES=`git diff --cached --name-only --diff-filter=ACMR | grep \\.dart`
+
+if [ -n "$STAGED_DART_FILES" ]; then
+    echo "Run the flutter formatter..."
+    flutter format $STAGED_DART_FILES
+fi
