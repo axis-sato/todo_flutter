@@ -1,5 +1,9 @@
 # todo_flutter
 
+[![Flutter Analyze and Test Workflow](https://github.com/c8112002/todo_flutter/actions/workflows/flutter_analyze_and_test.yaml/badge.svg)](https://github.com/c8112002/todo_flutter/actions/workflows/flutter_analyze_and_test.yaml)
+
+---
+
 FlutterのTODO アプリ
 
 ## Getting Started
