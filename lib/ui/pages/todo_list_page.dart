@@ -10,8 +10,13 @@ class Todo {
   Todo({required this.id, required this.title, required this.completed});
 }
 
-class TodoListPage extends StatelessWidget {
-  final todoList = [
+class TodoListPage extends StatefulWidget {
+  @override
+  _TodoListPageState createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  List<Todo> todoList = [
     Todo(id: 1, title: "foo", completed: true),
     Todo(id: 2, title: "bar", completed: false),
     Todo(id: 3, title: "hoge", completed: false),
@@ -118,14 +123,24 @@ class TodoListPage extends StatelessWidget {
   }
 
   void _addTodo(String title) {
+    final lastID = todoList.isEmpty ? 1 : todoList.last.id;
+    setState(() {
+      todoList.add(Todo(id: lastID + 1, title: title, completed: false));
+    });
     logger.d("TODO作成 (title=$title)");
   }
 
   void _deleteTodo(Todo todo) {
+    setState(() {
+      todoList.remove(todo);
+    });
     logger.d("${todo.title}を削除しました。");
   }
 
   void _toggleTodo(Todo todo) {
+    setState(() {
+      todo.completed = !todo.completed;
+    });
     logger.d("${todo.title}を完了/未完了を変更しました。");
   }
 }
