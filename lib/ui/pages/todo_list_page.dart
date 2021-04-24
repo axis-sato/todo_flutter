@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter/ui/pages/todo_page.dart';
 import 'package:todo_flutter/utils/logger.dart';
 
 class Todo {
@@ -58,6 +59,14 @@ class TodoListPage extends StatelessWidget {
                         color: Colors.grey)
                     : null,
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TodoPage(todo: todo),
+                  ),
+                );
+              },
             ),
           );
         },
@@ -67,11 +76,49 @@ class TodoListPage extends StatelessWidget {
         itemCount: todoList.length,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          final newTitle = await showDialog<String>(
+            context: context,
+            builder: (context) {
+              String title = "";
+              return AlertDialog(
+                title: const Text("TODO作成"),
+                content: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: TextField(
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Title',
+                      ),
+                      onChanged: (value) {
+                        title = value.trim();
+                      },
+                    )),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(title);
+                    },
+                    child: const Text('作成'),
+                  ),
+                ],
+              );
+            },
+          );
+
+          if (newTitle != null && newTitle != "") _addTodo(newTitle);
+        },
         tooltip: '追加',
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void _addTodo(String title) {
+    logger.d("TODO作成 (title=$title)");
   }
 
   void _deleteTodo(Todo todo) {
